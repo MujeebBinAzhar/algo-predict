@@ -7,6 +7,16 @@
   scroll-behavior: smooth;
 }
 
+img,
+video {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
 body {
   background-color: #000;
   font-family: "Poppins", sans-serif;
@@ -36,22 +46,27 @@ body {
   margin-bottom: 2rem;
 }
 
-.nav-cta {
+.nav-cta-group {
+  display: flex;
+  gap: 0.5rem;
+}
+.nav-cta-group .nav-cta {
   background: #dd0000;
   border: none;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: 0.6rem 2rem;
+  padding: 0.55rem 1.25rem;
   box-shadow: 0 8px 20px rgba(221, 0, 0, 0.35);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  min-width: 250px;
+  min-width: 150px;
   text-align: center;
+  font-size: 0.82rem;
 }
-.nav-cta:hover {
+.nav-cta-group .nav-cta:hover {
   background: rgb(246.5, 0, 0);
   color: #ffffff;
 }
@@ -238,6 +253,57 @@ body {
   .navigation .navbar-brand img {
     max-width: 120px;
   }
+  .navigation .nav-cta-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .navigation .nav-cta-group .nav-cta {
+    width: 100%;
+    min-width: auto;
+    font-size: 0.9rem;
+    padding: 0.7rem 1.25rem;
+  }
+}
+@media (max-width: 1400px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-menu-trigger {
+    display: inline-flex !important;
+  }
+}
+@media (min-width: 1401px) {
+  .desktop-nav {
+    display: flex !important;
+  }
+  .mobile-menu-trigger {
+    display: none !important;
+  }
+}
+.nav-cta {
+  background: #dd0000;
+  border: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.6rem 2rem;
+  box-shadow: 0 8px 20px rgba(221, 0, 0, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 250px;
+  text-align: center;
+}
+.nav-cta:hover {
+  background: rgb(246.5, 0, 0);
+  color: #ffffff;
+}
+
+@media (max-width: 576px) {
+  .section-title {
+    font-size: clamp(1.85rem, 7vw, 2.3rem);
+  }
 }
 .mobile-nav-modal {
   position: fixed;
@@ -286,7 +352,7 @@ body {
 .mobile-nav-modal .mobile-menu {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 .mobile-nav-modal .mobile-menu ul {
   list-style: none;
@@ -302,9 +368,17 @@ body {
   font-weight: 500;
   text-decoration: none;
 }
-.mobile-nav-modal .mobile-menu .mobile-cta {
+.mobile-nav-modal .mobile-menu .nav-cta-group {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  text-align: center;
+  gap: 0.75rem;
+}
+.mobile-nav-modal .mobile-menu .nav-cta-group .nav-cta {
+  width: 100%;
+  min-width: auto;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
 }
 
 body.nav-open {
@@ -354,7 +428,7 @@ body.nav-open {
 .hero-section .hero-copy {
   color: rgba(255, 255, 255, 0.78);
   font-size: 1rem;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto 2.5rem;
 }
 .hero-section .hero-actions .btn {
@@ -458,6 +532,142 @@ body.nav-open {
   align-items: center;
   justify-content: center;
 }
+.software-section .software-media .software-console {
+  width: 100%;
+  max-width: 460px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+}
+.software-section .software-media .software-console .content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.software-section .software-media .software-console .activator {
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  text-align: center;
+}
+.software-section .software-media .software-console .custom-modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+.software-section .software-media .software-console .custom-modal .modal-content {
+  background: rgba(13, 13, 13, 0.95);
+  margin: 5% auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: min(420px, 90vw);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+.software-section .software-media .software-console .custom-modal .close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+}
+.software-section .software-media .software-console .custom-modal .close img {
+  width: 18px;
+  height: 18px;
+}
+.software-section .software-media .software-console .custom-modal .modal-para {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 1.5rem 0;
+}
+.software-section .software-media .software-console .custom-modal .console {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  min-height: 140px;
+  max-height: 200px;
+  overflow-y: auto;
+  text-align: left;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+.software-section .software-media .software-console .custom-modal .notification {
+  margin: 1rem 0;
+}
+.software-section .software-media .software-console .custom-modal .notification .notification-text {
+  margin: 0;
+  color: #ffffff;
+}
+.software-section .software-media .software-console .custom-modal .predict {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  background: #dd0000;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+.software-section .software-media .software-console .pass {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 0.75rem 1.25rem;
+  color: #ffffff;
+}
+.software-section .software-media .software-console .error-msg {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #ff5c5c;
+}
+.software-section .software-media .software-console .software-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.software-section .software-media .software-console .software-actions button {
+  flex: 1;
+  min-width: 160px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+}
+.software-section .software-media .software-console .software-actions .btn-link {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: underline;
+  padding: 0;
+  min-width: auto;
+}
+.software-section .software-media .software-console .content-bottom {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.software-section .software-media .software-console .content-bottom p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+}
 .software-section .media-placeholder {
   width: min(480px, 100%);
   aspect-ratio: 4/3;
@@ -554,6 +764,12 @@ body.nav-open {
   margin: 0;
   font-weight: 600;
   letter-spacing: 0.05em;
+}
+.how-it-works .how-actions {
+  margin: 1.5rem 0 2rem;
+}
+.how-it-works .how-actions .nav-cta {
+  min-width: auto;
 }
 .how-it-works .how-media {
   border-radius: 1.5rem;
@@ -708,82 +924,18 @@ body.nav-open {
   justify-content: center;
   font-size: 1rem;
 }
+.vip-section .vip-cta .vip-cta-btn--outline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: none;
+}
+.vip-section .vip-cta .vip-cta-btn--outline .btn-icon {
+  background: rgba(255, 255, 255, 0.1);
+}
 .vip-section .vip-cta .cta-hint {
   margin: 0;
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.6);
-}
-.vip-section .vip-console {
-  padding: 2.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.vip-section .vip-console .console-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.vip-section .vip-console .console-header .console-label {
-  letter-spacing: 0.35em;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 0.4rem;
-}
-.vip-section .vip-console .console-header h3 {
-  margin: 0;
-}
-.vip-section .vip-console .status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.8rem;
-  border-radius: 999px;
-  background: rgba(51, 255, 153, 0.15);
-  color: #33ff99;
-  font-size: 0.8rem;
-}
-.vip-section .vip-console .status-pill .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: currentColor;
-  box-shadow: 0 0 8px currentColor;
-}
-.vip-section .vip-console .console-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.vip-section .vip-console .console-tile {
-  border-radius: 1rem;
-  padding: 1.2rem 1.35rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
-}
-.vip-section .vip-console .console-tile .tile-label {
-  margin: 0;
-  font-size: 0.78rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-}
-.vip-section .vip-console .console-tile h4 {
-  margin: 0.35rem 0 0.4rem;
-  font-size: 1.15rem;
-}
-.vip-section .vip-console .console-tile .tile-meta {
-  margin: 0;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.65);
-}
-.vip-section .vip-console .console-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 1rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
 }
 @media (max-width: 991px) {
   .vip-section .vip-panels {
@@ -1052,6 +1204,23 @@ body.pricing-page {
   padding: 1.25rem;
   background: rgba(255, 255, 255, 0.02);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.payment-section .payment-card .payment-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(221, 0, 0, 0.35);
+  box-shadow: 0 12px 25px rgba(221, 0, 0, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 .payment-section .payment-card h4 {
   margin-bottom: 0.5rem;
@@ -1059,6 +1228,13 @@ body.pricing-page {
 .payment-section .payment-card p {
   margin: 0;
   color: rgba(255, 255, 255, 0.7);
+}
+.payment-section .payment-card p a {
+  color: #ff1111;
+  text-decoration: none;
+}
+.payment-section .payment-card p a:hover {
+  text-decoration: underline;
 }
 
 .access-info {
