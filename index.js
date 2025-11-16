@@ -8,11 +8,11 @@
         var match = text.match(/(\d[\d\s]*)\s+member(s)?/i);
         if (match && match[1]) {
           var cleaned = match[1].replace(/\s+/g, " ").trim();
-          vipMembersTarget.textContent = cleaned;
+          vipMembersTarget.textContent = cleaned + "+";
         }
       })
       .catch(() => {
-        vipMembersTarget.textContent = "1 200";
+        vipMembersTarget.textContent = "1 200+";
       });
   }
 
