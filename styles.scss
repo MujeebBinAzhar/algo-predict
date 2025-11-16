@@ -1194,6 +1194,7 @@ body.nav-open {
         a {
             color: rgba($primary-white, 0.7);
             text-decoration: none;
+            text-transform: capitalize;
 
             &:hover {
                 color: $primary-white;

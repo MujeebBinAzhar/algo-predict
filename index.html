@@ -24,7 +24,7 @@
             </a>
             <nav class="desktop-nav d-none d-lg-flex">
                 <ul class="nav-list">
-                    <li><a class="nav-link active" href="#intro">Въведение</a></li>
+                    <li><a class="nav-link" href="#intro">Въведение</a></li>
                     <li><a class="nav-link" href="software.html">Софтуер</a></li>
                     <li><a class="nav-link" href="#how-it-works">Как работи</a></li>
                     <li><a class="nav-link" href="#vip">V.I.P общност</a></li>
@@ -39,7 +39,7 @@
                         <i class="fa-brands fa-telegram"></i>&nbsp;Публичен канал
                     </a>
                     <a class="btn nav-cta" href="https://t.me/+evoy32KbvXIwOWJh" target="_blank" rel="noopener">
-                        <i class="fa-solid fa-trophy"></i>&nbsp;V.I.P канал
+                        <i class="fa-solid fa-trophy"></i>&nbsp;V.IP Група
                     </a>
                 </div>
             </nav>
@@ -70,7 +70,7 @@
                     <a class="btn nav-cta mobile-cta" href="https://t.me/algopredictbet" target="_blank"
                         rel="noopener"><i class="fa-brands fa-telegram"></i>&nbsp;Публичен канал</a>
                     <a class="btn nav-cta mobile-cta" href="https://t.me/+evoy32KbvXIwOWJh" target="_blank"
-                        rel="noopener"><i class="fa-solid fa-trophy"></i>&nbsp;V.I.P канал</a>
+                        rel="noopener"><i class="fa-solid fa-trophy"></i>&nbsp;V.IP Група</a>
                 </div>
             </nav>
         </div>
@@ -397,11 +397,15 @@
                         </p>
                         <div class="footer-social">
                             <a href="https://t.me/algoadmin" target="_blank" rel="noopener" aria-label="Telegram Admin">
+                                <i class="fa-solid fa-comments"></i>
+                            </a>
+                            <a href="https://t.me/algopredictbet" target="_blank" rel="noopener"
+                                aria-label="Telegram Public Channel">
                                 <i class="fa-brands fa-telegram"></i>
                             </a>
                             <a href="https://t.me/+evoy32KbvXIwOWJh" target="_blank" rel="noopener"
-                                aria-label="Telegram Channel">
-                                <i class="fa-solid fa-signal"></i>
+                                aria-label="Telegram VIP Channel">
+                                <i class="fa-solid fa-trophy"></i>
                             </a>
                         </div>
                     </div>
@@ -418,7 +422,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <h3>Поддръжка</h3>
-                    <ul class="footer-links">
+                    <ul class="footer-links ">
                         <li><a href="https://t.me/algopredictbet" target="_blank" rel="noopener">Telegram публичен
                                 канал</a></li>
                         <li><a href="https://t.me/+evoy32KbvXIwOWJh" target="_blank" rel="noopener">Telegram V.I.P
@@ -478,6 +482,48 @@
             var yearTarget = document.getElementById("year");
             if (yearTarget) {
                 yearTarget.textContent = new Date().getFullYear();
+            }
+
+            // Scrollspy for setting active nav link based on visible section
+            var sectionIds = ["intro", "how-it-works", "vip", "faq"];
+            var sections = sectionIds
+                .map(function (id) { return document.getElementById(id); })
+                .filter(function (el) { return !!el; });
+
+            function setActive(id) {
+                var selector = '.desktop-nav .nav-list a[href^="#"], .mobile-menu a[href^="#"]';
+                var links = document.querySelectorAll(selector);
+                links.forEach(function (a) {
+                    if (a.getAttribute("href") === "#" + id) {
+                        a.classList.add("active");
+                    } else {
+                        a.classList.remove("active");
+                    }
+                });
+            }
+
+            function onScroll() {
+                var scrollPos = window.scrollY + 120; // offset for fixed header
+                var current = sectionIds[0];
+                sections.forEach(function (sec) {
+                    var top = sec.offsetTop;
+                    var bottom = top + sec.offsetHeight;
+                    if (scrollPos >= top && scrollPos < bottom) {
+                        current = sec.id;
+                    }
+                });
+                setActive(current);
+            }
+
+            // Initialize and bind
+            onSubsequentTick();
+            window.addEventListener("scroll", onScroll, { passive: true });
+            // also update on resize
+            window.addEventListener("resize", onScroll);
+
+            function onSubsequentTick() {
+                // run after layout
+                requestAnimationFrame(onScroll);
             }
         });
     </script>

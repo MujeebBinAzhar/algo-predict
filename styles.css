@@ -1028,6 +1028,7 @@ body.nav-open {
 .site-footer .footer-links a {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
+  text-transform: capitalize;
 }
 .site-footer .footer-links a:hover {
   color: #ffffff;
