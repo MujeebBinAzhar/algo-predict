@@ -84,7 +84,7 @@ body {
   padding: 0;
 }
 .navigation .navbar .navbar-brand img {
-  max-width: 160px;
+  max-width: 150px;
 }
 .navigation .navbar .navbar-nav {
   gap: 0.25rem;
@@ -200,7 +200,7 @@ body {
   gap: 1rem;
 }
 .navigation .navbar-brand img {
-  max-width: 160px;
+  max-width: 130px;
 }
 .navigation .desktop-nav {
   display: flex;

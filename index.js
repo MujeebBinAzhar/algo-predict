@@ -4,14 +4,15 @@
     fetch("https://r.jina.ai/https://t.me/+evoy32KbvXIwOWJh")
       .then((response) => response.text())
       .then((text) => {
-        var match = text.match(/(\d[\d\s]*)\s+members/i);
+        // Match "1 234 members" or "2 member"
+        var match = text.match(/(\d[\d\s]*)\s+member(s)?/i);
         if (match && match[1]) {
           var cleaned = match[1].replace(/\s+/g, " ").trim();
-          vipMembersTarget.textContent = cleaned + "+";
+          vipMembersTarget.textContent = cleaned;
         }
       })
       .catch(() => {
-        vipMembersTarget.textContent = "1 200+";
+        vipMembersTarget.textContent = "1 200";
       });
   }
 
