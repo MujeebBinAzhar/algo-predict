@@ -75,52 +75,93 @@
     </div>
 
     <main>
-        <section class="software-section">
+        <section class="software-section-new">
             <div class="container">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-6">
-                        <div class="section-eyebrow">AlgoPredict — Aviator Software</div>
-                        <h1 class="section-title">НЕ разчитай на късмета, играй на сигурно</h1>
-                        <p class="section-copy">
-                            Тук ще откриеш демо формата за въвеждане на код и преглед на следващия множител. След
-                            активиране виждаш стойността, конзолата за статуси и кратки инструкции.
-                        </p>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="software-media">
-                            <div class="software-console">
-                                <div class="content">
-                                    <p class="activator">AlgoPredict — Aviator Predictor Software</p>
-                                    <div id="algoPredictModal" class="custom-modal">
-                                        <div class="modal-content">
-                                            <span class="close">
-                                                <img src="./assets/cross.svg" alt="close" />
-                                            </span>
-                                            <p class="modal-para"><span id="prediction">0</span>X</p>
-                                            <div class="console"></div>
-                                            <div class="notification">
-                                                <p class="notification-text"></p>
-                                            </div>
-                                            <button class="predict">
-                                                Показване на коефициент за следващ рунд
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <input class="pass" type="text" name="password"
+                <div class="text-center mb-5">
+                    <div class="section-eyebrow">AlgoPredict — Aviator Software</div>
+                    <h1 class="section-title">НЕ разчитай на късмета, играй на сигурно</h1>
+                    <p class="section-copy">
+                        Тук ще откриеш демо формата за въвеждане на код и преглед на следващия множител. След
+                        активиране виждаш стойността, конзолата за статуси и кратки инструкции.
+                    </p>
+                </div>
+
+                <div class="software-dashboard">
+                    <div class="dashboard-card activation-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-key"></i> Активиране на достъп</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="activation-form">
+                                <div class="form-group">
+                                    <label for="siteLink">Въведете линк на сайта, където ще играете</label>
+                                    <input type="url" id="siteLink" class="form-input"
+                                        placeholder="https://example-casino.com" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="accessCode">Въведете код за достъп</label>
+                                    <input type="text" id="accessCode" class="form-input"
                                         placeholder="Въведете код за достъп" />
                                     <p class="error-msg d-none">Невалиден код за достъп!</p>
-                                    <div class="software-actions">
-                                        <button class="activate">Активирай код</button>
-                                        <button class="admin btn-link">Admin</button>
-                                        <button class="mobile-admin btn-link d-lg-none">Admin</button>
-                                    </div>
-                                    <div class="content-bottom d-none">
-                                        <p class="license-number">Licence Number: ---------</p>
-                                        <p class="casino-name">Casino Client: ---------</p>
-                                        <p class="telegram-hide">Свържи се с нашия Telegram админ за допълнителни
-                                            инструкции.</p>
-                                    </div>
                                 </div>
+                                <button class="btn-activate" id="activateBtn">
+                                    <i class="fa-solid fa-rocket"></i> Активирай код
+                                </button>
+                            </div>
+                            <div class="plan-info d-none" id="planInfo">
+                                <div class="plan-badge" id="planBadge">
+                                    <i class="fa-solid fa-crown"></i> <span id="planName"></span>
+                                </div>
+                                <div class="plan-details">
+                                    <p><strong>Код:</strong> <span id="licenseNumber"></span></p>
+                                    <p><strong>Сайт:</strong> <span id="casinoSite"></span></p>
+                                    <p><strong>Достъп:</strong> <span id="accessTime"></span></p>
+                                    <p><strong>Казина:</strong> <span id="casinoLimit"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card predictions-card d-none" id="predictionsCard">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-chart-line"></i> Предвиждания</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="predictions-grid">
+                                <div class="prediction-item">
+                                    <div class="prediction-label">Рунд 1</div>
+                                    <div class="prediction-value" id="prediction1">0.00</div>
+                                    <div class="prediction-multiplier">X</div>
+                                </div>
+                                <div class="prediction-item">
+                                    <div class="prediction-label">Рунд 2</div>
+                                    <div class="prediction-value" id="prediction2">0.00</div>
+                                    <div class="prediction-multiplier">X</div>
+                                </div>
+                                <div class="prediction-item">
+                                    <div class="prediction-label">Рунд 3</div>
+                                    <div class="prediction-value" id="prediction3">0.00</div>
+                                    <div class="prediction-multiplier">X</div>
+                                </div>
+                                <div class="prediction-item">
+                                    <div class="prediction-label">Рунд 4</div>
+                                    <div class="prediction-value" id="prediction4">0.00</div>
+                                    <div class="prediction-multiplier">X</div>
+                                </div>
+                            </div>
+                            <button class="btn-predict" id="predictBtn">
+                                <i class="fa-solid fa-play"></i> Показване на коефициент за следващ рунд
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card console-card d-none" id="consoleCard">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-terminal"></i> Конзола</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="console-output" id="consoleOutput">
+                                <p class="console-line">Очакване на активация...</p>
                             </div>
                         </div>
                     </div>
@@ -188,6 +229,48 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <script src="index.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = document.getElementById("mobileNavModal");
+            var toggleBtn = document.getElementById("mobileMenuToggle");
+            var closeBtn = document.getElementById("mobileNavClose");
+            var backdrop = document.getElementById("mobileNavBackdrop");
+            var mobileLinks = modal ? modal.querySelectorAll("a") : [];
+
+            function openModal() {
+                if (!modal) return;
+                modal.classList.add("is-open");
+                modal.setAttribute("aria-hidden", "false");
+                document.body.classList.add("nav-open");
+            }
+
+            function closeModal() {
+                if (!modal) return;
+                modal.classList.remove("is-open");
+                modal.setAttribute("aria-hidden", "true");
+                document.body.classList.remove("nav-open");
+            }
+
+            toggleBtn && toggleBtn.addEventListener("click", openModal);
+            closeBtn && closeBtn.addEventListener("click", closeModal);
+            backdrop && backdrop.addEventListener("click", closeModal);
+
+            mobileLinks.forEach(function (link) {
+                link.addEventListener("click", closeModal);
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape" && modal && modal.classList.contains("is-open")) {
+                    closeModal();
+                }
+            });
+
+            var yearTarget = document.getElementById("year");
+            if (yearTarget) {
+                yearTarget.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
 </body>
 
 </html>
