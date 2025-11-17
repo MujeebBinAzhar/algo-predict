@@ -33,14 +33,12 @@
   var consoleCard = document.getElementById("consoleCard");
   var consoleOutput = document.getElementById("consoleOutput");
 
-  // License keys for different plans
   var licenseKeys = {
     trial: "TRIAL-289-2024",
     basic: "BASIC-329-2024",
     vip: "VIP-389-2024",
   };
 
-  // Plan configurations
   var planConfigs = {
     trial: {
       name: "AlgoPredict Trial",
@@ -62,7 +60,6 @@
     },
   };
 
-  // Prediction values for 4 rounds
   var predictions = [
     { start: 0, end: 1.85, duration: 1200 },
     { start: 0, end: 2.42, duration: 1200 },
@@ -73,8 +70,9 @@
   var currentPlan = null;
   var clickCount = 0;
   var currentMessageIndex = 0;
+  var editCount = 0;
+  var currentSiteLink = "";
 
-  // Console messages
   const messagesWithColors = [
     { message: "Hash ID = os92md9da81v", color: "white" },
     { message: "Зареждане на данни...", color: "white" },
@@ -87,7 +85,6 @@
     { message: "Операцията завърши успешно.", color: "#4ade80" },
   ];
 
-  // Update console output
   const updateConsole = (message, color) => {
     if (!consoleOutput) return;
     const p = document.createElement("p");
@@ -96,7 +93,6 @@
     p.style.color = color;
     consoleOutput.appendChild(p);
 
-    // Keep only last 8 messages
     const messages = consoleOutput.querySelectorAll(".console-line");
     if (messages.length > 8) {
       consoleOutput.removeChild(messages[0]);
@@ -105,7 +101,6 @@
     consoleOutput.scrollTop = consoleOutput.scrollHeight;
   };
 
-  // Counter animation for predictions
   const counterAnim = (targetId, start, end, duration) => {
     const target = document.getElementById(targetId);
     if (!target) return;
@@ -143,13 +138,11 @@
     window.requestAnimationFrame(step);
   };
 
-  // Activate license
   if (activateBtn) {
     activateBtn.onclick = function () {
       var code = accessCodeInput ? accessCodeInput.value.trim() : "";
       var siteLink = siteLinkInput ? siteLinkInput.value.trim() : "";
 
-      // Validate site link
       if (!siteLink) {
         if (errorMsg) {
           errorMsg.textContent = "Моля, въведете линк на сайта!";
@@ -158,7 +151,6 @@
         return;
       }
 
-      // Validate URL format
       try {
         new URL(siteLink);
       } catch (e) {
@@ -169,7 +161,6 @@
         return;
       }
 
-      // Check license key
       var planType = null;
       if (code === licenseKeys.trial) {
         planType = "trial";
@@ -187,27 +178,30 @@
         return;
       }
 
-      // Success - activate plan
       currentPlan = planType;
       var config = planConfigs[planType];
 
-      // Hide error
       if (errorMsg) {
         errorMsg.classList.add("d-none");
       }
 
-      // Show plan info
       if (planInfo) {
         planInfo.classList.remove("d-none");
         planBadge.style.background = config.color;
         planName.textContent = config.name;
         licenseNumber.textContent = code;
         casinoSite.textContent = siteLink;
+        currentSiteLink = siteLink;
         accessTime.textContent = config.access;
         casinoLimit.textContent = config.casinos;
+
+        // Show edit button for Basic and VIP plans
+        var editSiteBtn = document.getElementById("editSiteBtn");
+        if (editSiteBtn && (planType === "basic" || planType === "vip")) {
+          editSiteBtn.classList.remove("d-none");
+        }
       }
 
-      // Show predictions and console cards
       if (predictionsCard) {
         predictionsCard.classList.remove("d-none");
       }
@@ -215,13 +209,11 @@
         consoleCard.classList.remove("d-none");
       }
 
-      // Disable inputs
       if (accessCodeInput) accessCodeInput.disabled = true;
       if (siteLinkInput) siteLinkInput.disabled = true;
       this.disabled = true;
       this.textContent = "✓ Активиран";
 
-      // Update console
       updateConsole("Лицензът е активиран успешно!", "#4ade80");
       updateConsole("Казино: " + siteLink, "white");
       updateConsole("План: " + config.name, "white");
@@ -229,7 +221,6 @@
     };
   }
 
-  // Predict button
   if (predictBtn) {
     predictBtn.onclick = function () {
       if (!currentPlan) {
@@ -240,20 +231,17 @@
       clickCount++;
       currentMessageIndex = 0;
 
-      // Clear console
       if (consoleOutput) {
         consoleOutput.innerHTML =
           '<p class="console-line">Изход от конзолата:</p>';
       }
 
-      // Determine which prediction to show (cycle through 4)
-      var predictionIndex = (clickCount - 1) % 4;
+      // Cycle through predictions for single counter
+      var predictionIndex = (clickCount - 1) % predictions.length;
       var prediction = predictions[predictionIndex];
-      var targetId = "prediction" + (predictionIndex + 1);
 
-      // Animate the prediction
       counterAnim(
-        targetId,
+        "prediction",
         prediction.start,
         prediction.end,
         prediction.duration
@@ -261,7 +249,114 @@
     };
   }
 
-  // Old modal logic (for backward compatibility with old pages)
+  // Site link editing functionality
+  var editSiteBtn = document.getElementById("editSiteBtn");
+  var siteEditForm = document.getElementById("siteEditForm");
+  var siteLinkEdit = document.getElementById("siteLinkEdit");
+  var saveSiteBtn = document.getElementById("saveSiteBtn");
+  var cancelSiteBtn = document.getElementById("cancelSiteBtn");
+  var editInfo = document.getElementById("editInfo");
+
+  if (editSiteBtn) {
+    editSiteBtn.onclick = function () {
+      if (!siteEditForm || !siteLinkEdit) return;
+
+      // Check if user can still edit
+      var canEdit = false;
+      if (currentPlan === "vip") {
+        canEdit = true; // Unlimited
+      } else if (currentPlan === "basic" && editCount < 2) {
+        canEdit = true; // Max 2 edits
+      }
+
+      if (!canEdit) {
+        if (editInfo) {
+          editInfo.textContent = "Достигнахте лимита за редактиране!";
+          editInfo.style.color = "#ff5c5c";
+        }
+        return;
+      }
+
+      siteEditForm.classList.remove("d-none");
+      siteLinkEdit.value = currentSiteLink;
+      siteLinkEdit.focus();
+
+      // Update edit info
+      if (editInfo) {
+        var remaining =
+          currentPlan === "vip" ? "Неограничено" : 2 - editCount + " оставащи";
+        editInfo.textContent = "Оставащи редактирания: " + remaining;
+        editInfo.style.color = "rgba(255, 255, 255, 0.7)";
+      }
+    };
+  }
+
+  if (saveSiteBtn) {
+    saveSiteBtn.onclick = function () {
+      if (!siteLinkEdit || !siteEditForm) return;
+
+      var newSiteLink = siteLinkEdit.value.trim();
+
+      if (!newSiteLink) {
+        if (editInfo) {
+          editInfo.textContent = "Моля, въведете валиден URL адрес!";
+          editInfo.style.color = "#ff5c5c";
+        }
+        return;
+      }
+
+      try {
+        new URL(newSiteLink);
+      } catch (e) {
+        if (editInfo) {
+          editInfo.textContent = "Моля, въведете валиден URL адрес!";
+          editInfo.style.color = "#ff5c5c";
+        }
+        return;
+      }
+
+      // Update site link
+      currentSiteLink = newSiteLink;
+      if (casinoSite) {
+        casinoSite.textContent = newSiteLink;
+      }
+
+      // Increment edit count
+      editCount++;
+
+      // Hide edit form
+      siteEditForm.classList.add("d-none");
+
+      // Update console
+      updateConsole("Сайтът е обновен: " + newSiteLink, "#4ade80");
+
+      // Check if user can still edit
+      var canStillEdit = false;
+      if (currentPlan === "vip") {
+        canStillEdit = true;
+      } else if (currentPlan === "basic" && editCount < 2) {
+        canStillEdit = true;
+      }
+
+      if (!canStillEdit && editSiteBtn) {
+        editSiteBtn.disabled = true;
+        editSiteBtn.style.opacity = "0.5";
+        editSiteBtn.textContent = "Лимит достигнат";
+      }
+    };
+  }
+
+  if (cancelSiteBtn) {
+    cancelSiteBtn.onclick = function () {
+      if (siteEditForm) {
+        siteEditForm.classList.add("d-none");
+      }
+      if (siteLinkEdit) {
+        siteLinkEdit.value = "";
+      }
+    };
+  }
+
   var modal = document.getElementsByClassName("custom-modal")[0];
   var predict = document.getElementsByClassName("predict")[0];
   var span = document.getElementsByClassName("close")[0];

@@ -114,7 +114,25 @@
                                 </div>
                                 <div class="plan-details">
                                     <p><strong>Код:</strong> <span id="licenseNumber"></span></p>
-                                    <p><strong>Сайт:</strong> <span id="casinoSite"></span></p>
+                                    <div class="site-link-group">
+                                        <p><strong>Сайт:</strong> <span id="casinoSite"></span></p>
+                                        <button class="btn-edit-site d-none" id="editSiteBtn">
+                                            <i class="fa-solid fa-pencil"></i> Редактирай
+                                        </button>
+                                    </div>
+                                    <div class="site-edit-form d-none" id="siteEditForm">
+                                        <input type="url" id="siteLinkEdit" class="form-input"
+                                            placeholder="https://example-casino.com" />
+                                        <div class="edit-actions">
+                                            <button class="btn-save-site" id="saveSiteBtn">
+                                                <i class="fa-solid fa-check"></i> Запази
+                                            </button>
+                                            <button class="btn-cancel-site" id="cancelSiteBtn">
+                                                <i class="fa-solid fa-xmark"></i> Отказ
+                                            </button>
+                                        </div>
+                                        <p class="edit-info" id="editInfo"></p>
+                                    </div>
                                     <p><strong>Достъп:</strong> <span id="accessTime"></span></p>
                                     <p><strong>Казина:</strong> <span id="casinoLimit"></span></p>
                                 </div>
@@ -127,26 +145,9 @@
                             <h3><i class="fa-solid fa-chart-line"></i> Предвиждания</h3>
                         </div>
                         <div class="card-body">
-                            <div class="predictions-grid">
-                                <div class="prediction-item">
-                                    <div class="prediction-label">Рунд 1</div>
-                                    <div class="prediction-value" id="prediction1">0.00</div>
-                                    <div class="prediction-multiplier">X</div>
-                                </div>
-                                <div class="prediction-item">
-                                    <div class="prediction-label">Рунд 2</div>
-                                    <div class="prediction-value" id="prediction2">0.00</div>
-                                    <div class="prediction-multiplier">X</div>
-                                </div>
-                                <div class="prediction-item">
-                                    <div class="prediction-label">Рунд 3</div>
-                                    <div class="prediction-value" id="prediction3">0.00</div>
-                                    <div class="prediction-multiplier">X</div>
-                                </div>
-                                <div class="prediction-item">
-                                    <div class="prediction-label">Рунд 4</div>
-                                    <div class="prediction-value" id="prediction4">0.00</div>
-                                    <div class="prediction-multiplier">X</div>
+                            <div class="prediction-display">
+                                <div class="prediction-value-large">
+                                    <span id="prediction">0.00</span><span class="prediction-multiplier">X</span>
                                 </div>
                             </div>
                             <button class="btn-predict" id="predictBtn">

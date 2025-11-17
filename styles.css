@@ -1453,47 +1453,131 @@ body.pricing-page {
   color: #ffffff;
   margin-right: 0.5rem;
 }
-.software-section-new .predictions-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+.software-section-new .plan-info .plan-details .site-link-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
-@media (min-width: 768px) {
-  .software-section-new .predictions-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+.software-section-new .plan-info .plan-details .site-link-group p {
+  margin: 0;
+  flex: 1;
+  min-width: 200px;
 }
-.software-section-new .predictions-grid .prediction-item {
+.software-section-new .plan-info .plan-details .site-link-group .btn-edit-site {
+  background: rgba(221, 0, 0, 0.2);
+  border: 1px solid rgba(221, 0, 0, 0.4);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.software-section-new .plan-info .plan-details .site-link-group .btn-edit-site:hover:not(:disabled) {
+  background: rgba(221, 0, 0, 0.3);
+  border-color: #dd0000;
+  transform: translateY(-1px);
+}
+.software-section-new .plan-info .plan-details .site-link-group .btn-edit-site:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.software-section-new .plan-info .plan-details .site-link-group .btn-edit-site i {
+  font-size: 0.8rem;
+}
+.software-section-new .plan-info .plan-details .site-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 0.5rem;
+}
+.software-section-new .plan-info .plan-details .site-edit-form .form-input {
+  width: 100%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  padding: 1.5rem 1rem;
-  text-align: center;
-  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: #ffffff;
+  font-size: 0.9rem;
 }
-.software-section-new .predictions-grid .prediction-item:hover {
-  background: rgba(255, 255, 255, 0.08);
+.software-section-new .plan-info .plan-details .site-edit-form .form-input:focus {
+  outline: none;
   border-color: #dd0000;
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
 }
-.software-section-new .predictions-grid .prediction-item .prediction-label {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 0.75rem;
+.software-section-new .plan-info .plan-details .site-edit-form .edit-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+.software-section-new .plan-info .plan-details .site-edit-form .edit-actions button {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
   font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
 }
-.software-section-new .predictions-grid .prediction-item .prediction-value {
-  font-size: 2rem;
+.software-section-new .plan-info .plan-details .site-edit-form .edit-actions .btn-save-site {
+  background: #dd0000;
+  color: #ffffff;
+}
+.software-section-new .plan-info .plan-details .site-edit-form .edit-actions .btn-save-site:hover {
+  background: #aa0000;
+  transform: translateY(-1px);
+}
+.software-section-new .plan-info .plan-details .site-edit-form .edit-actions .btn-cancel-site {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+.software-section-new .plan-info .plan-details .site-edit-form .edit-actions .btn-cancel-site:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.software-section-new .plan-info .plan-details .site-edit-form .edit-info {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+.software-section-new .prediction-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  min-height: 200px;
+}
+.software-section-new .prediction-display .prediction-value-large {
+  text-align: center;
+}
+.software-section-new .prediction-display .prediction-value-large span:first-child {
+  font-size: clamp(3rem, 8vw, 5rem);
   font-weight: 700;
   color: #ffffff;
   line-height: 1;
-  margin-bottom: 0.25rem;
 }
-.software-section-new .predictions-grid .prediction-item .prediction-multiplier {
-  font-size: 1.25rem;
+.software-section-new .prediction-display .prediction-value-large .prediction-multiplier {
+  font-size: clamp(2rem, 6vw, 3.5rem);
   color: #dd0000;
-  font-weight: 600;
+  font-weight: 700;
+  margin-left: 0.5rem;
 }
 .software-section-new .btn-predict {
   width: 100%;
